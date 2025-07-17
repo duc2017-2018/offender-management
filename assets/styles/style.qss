@@ -1,0 +1,594 @@
+/* === Biến màu và font === */
+@primary: #1976D2;
+@primary-dark: #1565C0;
+@secondary: #424242;
+@success: #4CAF50;
+@warning: #FF9800;
+@error: #F44336;
+@info: #2196F3;
+@gray-bg: #F2F2F2;
+@border: #ccc;
+@border-radius: 8px;
+@font: 'Segoe UI', 'Roboto', Arial, sans-serif;
+@font-size: 13px;
+
+/* === Toàn app === */
+QWidget {
+    font-family: @font;
+    font-size: @font-size;
+    background: @gray-bg;
+    color: #222;
+}
+
+/* === QPushButton === */
+QPushButton {
+    font-size: @font-size;
+    font-family: @font;
+    padding: 6px 12px;
+    min-height: 32px;
+    max-height: 40px;
+    border-radius: @border-radius;
+    border: 1px solid @primary;
+    background: white;
+    color: @primary;
+    transition: background 0.2s;
+}
+QPushButton:hover {
+    background: #dbe9f4;
+    color: @primary-dark;
+}
+QPushButton:pressed {
+    background: @primary;
+    color: white;
+}
+QPushButton:disabled {
+    background: #eee;
+    color: #aaa;
+    border: 1px solid #eee;
+}
+
+/* === QTabWidget & TabBar === */
+QTabBar::tab {
+    padding: 6px 12px;
+    border: 1px solid @border;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    background: #f9f9f9;
+    font-weight: normal;
+    min-width: 100px;
+    font-size: 13px;
+}
+QTabBar::tab:selected {
+    background: white;
+    font-weight: bold;
+    color: @primary;
+    border-bottom: 2px solid white;
+}
+QTabBar::tab:hover {
+    background: #e3f2fd;
+}
+QTabWidget::pane {
+    border: 1px solid @border;
+    border-radius: 0 0 8px 8px;
+    top: -1px;
+    background: white;
+}
+
+/* === QTableWidget === */
+QTableWidget, QTableView {
+    font-size: @font-size;
+    font-family: @font;
+    background: white;
+    border: 1px solid @border;
+    border-radius: @border-radius;
+    gridline-color: #e0e0e0;
+}
+QHeaderView::section {
+    background: #f5f5f5;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #e0e0e0;
+    padding: 6px 8px;
+}
+QTableWidget::item:selected, QTableView::item:selected {
+    background: #dbe9f4;
+    color: @primary-dark;
+}
+QTableWidget::item:hover, QTableView::item:hover {
+    background: #e3f2fd;
+}
+
+/* === QLineEdit, QComboBox === */
+QLineEdit, QComboBox {
+    font-size: @font-size;
+    font-family: @font;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid @border;
+    background: white;
+    min-height: 32px;
+    max-height: 40px;
+}
+QLineEdit:focus, QComboBox:focus {
+    border: 1.5px solid #007ACC;
+    background: #f5faff;
+}
+QLineEdit[error="true"] {
+    border: 1.5px solid @error;
+    background: #fff6f6;
+}
+
+/* === QGroupBox === */
+QGroupBox {
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    margin-top: 15px;
+    padding-top: 15px;
+    background: white;
+    font-weight: bold;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 15px;
+    padding: 0 10px 0 10px;
+    color: @primary;
+    background: white;
+}
+
+/* === QScrollBar (tối ưu cho touch/tablet) === */
+QScrollBar:vertical, QScrollBar:horizontal {
+    background: #f5f5f5;
+    border-radius: 6px;
+    width: 12px;
+    margin: 2px;
+}
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {
+    background: #b0bec5;
+    border-radius: 6px;
+    min-height: 24px;
+}
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {
+    background: #90caf9;
+}
+
+/* === Responsive spacing/layout === */
+QVBoxLayout, QHBoxLayout, QGridLayout {
+    spacing: 10px;
+    margin: 12px;
+}
+
+/* === Tooltip, notification === */
+QToolTip {
+    background: #1976D2;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+/* === QLabel trạng thái === */
+QLabel#error {
+    color: @error;
+    font-weight: bold;
+}
+QLabel#success {
+    color: @success;
+    font-weight: bold;
+}
+QLabel#info {
+    color: @info;
+    font-weight: bold;
+}
+
+/* === Notification Card nhỏ gọn, màu sắc nổi bật === */
+QFrame#notificationCardError {
+    background: #F44336;
+    color: white;
+    border: 2px solid #B71C1C;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 2px 12px rgba(244, 67, 54, 0.18);
+    min-height: 36px;
+    max-width: 340px;
+}
+QFrame#notificationCardWarning {
+    background: #FF9800;
+    color: #222;
+    border: 2px solid #E65100;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 2px 12px rgba(255, 152, 0, 0.18);
+    min-height: 36px;
+    max-width: 340px;
+}
+QFrame#notificationCardSuccess {
+    background: #4CAF50;
+    color: white;
+    border: 2px solid #1B5E20;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 2px 12px rgba(76, 175, 80, 0.18);
+    min-height: 36px;
+    max-width: 340px;
+}
+QFrame#notificationCardInfo {
+    background: #1976D2;
+    color: white;
+    border: 2px solid #0D47A1;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.18);
+    min-height: 36px;
+    max-width: 340px;
+}
+QLabel#notificationIcon {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+/* Notification Title */
+QLabel#notificationTitle {
+    color: #212121;
+    background: transparent;
+    border: none;
+}
+
+/* Notification Message */
+QLabel#notificationMessage {
+    color: #616161;
+    background: transparent;
+    border: none;
+    line-height: 1.4;
+}
+
+/* Notification Dismiss Button */
+QPushButton#notificationDismiss {
+    background: transparent;
+    border: none;
+    color: #9e9e9e;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+    min-height: 20px;
+    max-height: 20px;
+    padding: 0px;
+}
+
+QPushButton#notificationDismiss:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #424242;
+}
+
+QPushButton#notificationDismiss:pressed {
+    background: rgba(0, 0, 0, 0.2);
+    color: #212121;
+}
+
+/* Notification Action Button */
+QPushButton#notificationAction {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #1976D2;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+}
+
+QPushButton#notificationAction:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(25, 118, 210, 0.3);
+    color: #1565C0;
+}
+
+QPushButton#notificationAction:pressed {
+    background: rgba(25, 118, 210, 0.1);
+    color: #0d47a1;
+}
+
+/* Notification Container */
+QWidget#notificationContainer {
+    background: transparent;
+    border: none;
+}
+
+/* Animation for notification appearance */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+} 
+
+QLabel#headerTitle {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+QLabel#errorLabel {
+    color: @error;
+    font-size: 11px;
+    font-weight: normal;
+}
+QLabel#hintLabel {
+    color: @primary;
+    font-size: 12px;
+    font-style: italic;
+}
+QTextEdit#notesEdit {
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13px;
+    background-color: white;
+}
+QTextEdit#notesEdit:focus {
+    border-color: @primary;
+}
+QFrame#actionBar {
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+    border-radius: 0 0 12px 12px;
+}
+QLabel#infoLabel {
+    color: #666;
+    font-style: italic;
+}
+QGroupBox#formSection {
+    font-weight: bold;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    margin-top: 15px;
+    padding-top: 15px;
+    background-color: white;
+}
+QGroupBox#formSection::title {
+    subcontrol-origin: margin;
+    left: 15px;
+    padding: 0 10px 0 10px;
+    color: @primary;
+    background-color: white;
+}
+QLabel#resultLabel {
+    color: @primary;
+    background-color: #E3F2FD;
+    border: 1px solid #BBDEFB;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-height: 45px;
+    font-weight: bold;
+}
+QLabel#statusLabelWarning {
+    color: @warning;
+    background-color: #FFF3E0;
+    border: 1.5px solid @warning;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-height: 45px;
+    font-weight: bold;
+}
+QLabel#statusLabelSuccess {
+    color: @success;
+    background-color: #E8F5E9;
+    border: 1.5px solid @success;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-height: 45px;
+    font-weight: bold;
+}
+QLabel#statusLabelError {
+    color: @error;
+    background-color: #FFEBEE;
+    border: 1.5px solid @error;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-height: 45px;
+    font-weight: bold;
+}
+QLabel#statusLabelInfo {
+    color: @primary;
+    background-color: #E3F2FD;
+    border: 1px solid #BBDEFB;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-height: 45px;
+    font-weight: bold;
+} 
+
+QLabel#sectionTitle {
+    color: @primary;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+QPushButton#primaryButton {
+    background: @primary;
+    color: white;
+    font-size: @font-size;
+    font-family: @font;
+    padding: 6px 12px;
+    min-height: 32px;
+    max-height: 40px;
+    border-radius: @border-radius;
+    border: none;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+QPushButton#primaryButton:hover {
+    background: @primary-dark;
+    color: white;
+}
+QPushButton#primaryButton:pressed {
+    background: #004ba0;
+    color: white;
+}
+QPushButton#primaryButton:disabled {
+    background: #eee;
+    color: #aaa;
+    border: 1px solid #eee;
+}
+QPushButton#secondaryButton {
+    background: #f5f5f5;
+    color: @primary;
+    font-size: @font-size;
+    font-family: @font;
+    padding: 6px 12px;
+    min-height: 32px;
+    max-height: 40px;
+    border-radius: @border-radius;
+    border: 1px solid @primary;
+    font-weight: normal;
+    transition: background 0.2s;
+}
+QPushButton#secondaryButton:hover {
+    background: #dbe9f4;
+    color: @primary-dark;
+}
+QPushButton#secondaryButton:pressed {
+    background: #e3f2fd;
+    color: @primary;
+}
+QPushButton#secondaryButton:disabled {
+    background: #eee;
+    color: #aaa;
+    border: 1px solid #eee;
+}
+QLabel#userLabel {
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+}
+QLabel#timeLabel {
+    color: #888;
+    font-size: 12px;
+    font-style: italic;
+}
+QToolButton#settingsBtn, QToolButton#logoutBtn {
+    background: transparent;
+    border: none;
+    color: @primary;
+    font-size: 16px;
+    padding: 4px;
+}
+QToolButton#settingsBtn:hover, QToolButton#logoutBtn:hover {
+    background: #e3f2fd;
+    color: @primary-dark;
+    border-radius: 6px;
+} 
+
+/* === Sidebar nav button hiệu ứng động === */
+QPushButton#nav_button {
+    background: transparent;
+    color: @primary;
+    font-size: 15px;
+    font-family: @font;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-bottom: 2px;
+    transition: background 0.25s, color 0.2s, box-shadow 0.2s;
+}
+QPushButton#nav_button:hover, QPushButton#nav_button:focus {
+    background: #e3f2fd;
+    color: @primary-dark;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
+}
+QPushButton#nav_button:checked {
+    background: @primary;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.15);
+}
+
+/* === Dashboard Card hiệu ứng động === */
+QFrame#StatCard {
+    background: white;
+    border-radius: 16px;
+    border: 1.5px solid #e3eaf3;
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.08);
+    transition: box-shadow 0.25s, transform 0.18s;
+}
+QFrame#StatCard:hover {
+    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.18);
+    transform: scale(1.035);
+    border: 1.5px solid @primary;
+}
+
+/* === Table row hiệu ứng hover động === */
+QTableWidget::item:hover, QTableView::item:hover {
+    background: #e3f2fd;
+    color: @primary-dark;
+    transition: background 0.18s, color 0.18s;
+}
+QTableWidget::item:selected, QTableView::item:selected {
+    background: #dbe9f4;
+    color: @primary-dark;
+    transition: background 0.18s, color 0.18s;
+}
+
+/* === QTabBar hiệu ứng động === */
+QTabBar::tab {
+    transition: background 0.18s, color 0.18s, font-weight 0.18s;
+}
+QTabBar::tab:hover {
+    background: #e3f2fd;
+    color: @primary-dark;
+}
+QTabBar::tab:selected {
+    background: white;
+    color: @primary;
+    font-weight: bold;
+}
+
+/* === QPushButton hiệu ứng ripple (giả lập) === */
+QPushButton:pressed {
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.18);
+    background: #e3f2fd;
+    transition: box-shadow 0.18s, background 0.18s;
+}
+
+/* === Filter panel nổi bật === */
+QWidget#filterPanel {
+    background: #f9fbfd;
+    border: 1.5px solid #e3eaf3;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+}
+
+/* === Action bar, bulk action bar nổi bật === */
+QFrame#bulkActionBar, QFrame#actionBar {
+    background: #f5faff;
+    border-top: 1.5px solid #e3eaf3;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.04);
+} 
+
+/* === Sidebar Widget màu nền xanh ghi, border-radius, shadow === */
+QWidget#SidebarWidget {
+    background: #e3eaf3;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.08);
+} 

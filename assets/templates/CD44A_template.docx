@@ -1,0 +1,60 @@
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+
+BIÊN BẢN
+Bàn giao hồ sơ {{ten_ho_so}}
+
+Căn cứ {{can_cu_khoan}}
+Vào hồi {{thoi_gian_giao}} tại {{dia_diem_giao}}
+Chúng tôi gồm có:
+1. Bên giao
+Đồng chí: {{can_bo_giao}}    Chức vụ: {{chuc_vu_giao}}
+Đơn vị công tác: {{don_vi_giao}}
+2. Bên nhận
+Đồng chí: {{can_bo_nhan}}    Chức vụ: {{chuc_vu_nhan}}
+Đơn vị công tác: {{don_vi_nhan}}
+
+Tiến hành bàn giao hồ sơ {{ten_ho_so}}:
+Họ tên: {{ten_doi_tuong}}; Giới tính: {{gioi_tinh}}
+Họ tên khác: {{ten_khac}}; Ngày sinh: {{ngay_sinh}}
+Nơi ĐKTT: {{noi_dktt}}
+Nơi ở hiện nay: {{noi_o_hien_nay}}
+Tội danh: {{toi_danh}}
+Hình phạt chính: {{hinh_phat}}; Thời hạn: {{thoi_han}}
+Thời hạn chấp hành án: {{thoi_han_chap_hanh}}; Ngày chấp hành: {{ngay_chap_hanh}}
+Theo Bản án số {{ban_an_so}} ngày {{ngay_ban_an}} của {{toa_an}} và Quyết định thi hành án số {{qd_thi_hanh_so}} ngày {{ngay_qd_thi_hanh}} của {{toa_an_qd}}
+Nội dung chấp hành: {{noi_dung_chap_hanh}}
+Số hồ sơ: {{so_ho_so}} lập ngày {{ngay_lap_ho_so}}
+Hồ sơ có: {{so_to}} tờ (Có thống kê tài liệu trong hồ sơ kèm theo).
+
+Biên bản kết thúc lúc {{gio_ket_thuc}} cùng ngày, được lập thành 02 bản (mỗi bên nhận 01 bản)./.
+
+BÊN GIAO
+(Ký, ghi rõ họ tên)           BÊN NHẬN
+(Ký, ghi rõ họ tên)           XÁC NHẬN CỦA 
+                              CƠ QUAN BÊN NHẬN
+                              (ký, đóng dấu) 
+
+Mẫu file Word sẽ có các trường dạng {{field_name}} như sau:
+
+Số hồ sơ: {{so_ho_so}}
+Họ và tên: {{ho_ten}}
+Giới tính: {{gioi_tinh}}
+Ngày sinh: {{ngay_sinh}}
+Nơi cư trú: {{noi_cu_tru}}
+Nghề nghiệp: {{nghe_nghiep}}
+Tội danh: {{toi_danh}}
+Loại án: {{loai_an}}
+Số bản án: {{so_ban_an}}
+Quyết định THA: {{quyet_dinh_tha}}
+Ngày bắt đầu: {{ngay_bat_dau}}
+Thời gian thử thách: {{thoi_gian_thu_thach}}
+Được giảm: {{duoc_giam}}
+Ngày được giảm: {{ngay_duoc_giam}}
+Số lần giảm: {{so_lan_giam}}
+Ngày hoàn thành: {{ngay_hoan_thanh}}
+Trạng thái: {{trang_thai}}
+Phường/Xã: {{phuong_xa}}
+Ghi chú: {{ghi_chu}}
+
+Bạn có thể mở file này bằng Word để chỉnh sửa layout, thêm logo, tiêu đề, bảng, ... và giữ nguyên các trường {{...}} để phần mềm tự động đổ dữ liệu. 

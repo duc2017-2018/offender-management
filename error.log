@@ -1,0 +1,12 @@
+Uncaught exception: TypeError: index(self, row: int, column: int, parent: QModelIndex = QModelIndex()): not enough arguments
+  File "D:\KIEN TRUC\ui\offender_form.py", line 813, in paste_auto_fill
+    self.smart_fill_from_text(text)
+  File "D:\KIEN TRUC\ui\offender_form.py", line 919, in smart_fill_from_text
+    case_type_val = fuzzy_field('Loại án', self.case_type_combo.currentText(), model)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\KIEN TRUC\ui\offender_form.py", line 875, in fuzzy_field
+    choices = [model.data(model.index(i)) for i in range(model.rowCount())]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\KIEN TRUC\ui\offender_form.py", line 875, in <listcomp>
+    choices = [model.data(model.index(i)) for i in range(model.rowCount())]
+                          ^^^^^^^^^^^^^^
