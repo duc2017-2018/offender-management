@@ -85,3 +85,4 @@ pyinstaller>=5.0.0
 # ipython>=8.0.0 
 pytesseract 
 pdfplumber>=0.10.0 
+autocorrect>=2.6.1 
