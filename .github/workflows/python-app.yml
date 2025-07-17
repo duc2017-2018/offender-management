@@ -14,9 +14,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install Qt/X11 dependencies
+    - name: Install system OCR dependencies
       run: |
         sudo apt-get update
+        sudo apt-get install -y tesseract-ocr
+
+    - name: Install Qt/X11 dependencies
+      run: |
         sudo apt-get install -y libegl1 libegl-mesa0 libxkbcommon-x11-0 libxcb-xinerama0 libgl1 libglib2.0-0 mesa-utils
 
     - name: Set up Python
