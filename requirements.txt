@@ -83,3 +83,4 @@ pyinstaller>=5.0.0
 # Development Dependencies (optional)
 # jupyter>=1.0.0
 # ipython>=8.0.0 
+pytesseract 
