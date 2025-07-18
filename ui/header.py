@@ -68,7 +68,7 @@ class HeaderWidget(QWidget):
 
         # Settings button + dropdown
         self.settings_btn = QPushButton("⚙️")
-        self.settings_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.settings_btn.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         self.settings_btn.setToolTip("Cài đặt")
         self.settings_btn.setObjectName("settingsBtn")
         self.settings_menu = QMenu()
@@ -110,7 +110,7 @@ class HeaderWidget(QWidget):
     def update_user(self, username: str):
         """Cập nhật thông tin user"""
         self.username = username
-        self.user_label.setText(f"Người dùng: {username}")
+        # self.user_label.setText(f"Người dùng: {username}") # This line was removed as per the edit hint
         
     def set_logout_callback(self, callback):
         """Thiết lập callback cho nút logout"""
@@ -122,10 +122,9 @@ class HeaderWidget(QWidget):
 
     def set_tab_order_accessibility(self):
         """Đảm bảo accessibility: set tab order cho các nút header."""
-        # Tab order: user_label -> settings_btn -> logout_btn -> time_label
-        self.setTabOrder(self.user_label, self.settings_btn)
-        self.setTabOrder(self.settings_btn, self.logout_btn)
-        self.setTabOrder(self.logout_btn, self.time_label) 
+        # Tab order: avatar_btn -> settings_btn -> time_label
+        self.setTabOrder(self.avatar_btn, self.settings_btn)
+        self.setTabOrder(self.settings_btn, self.time_label) 
 
     def is_sticky(self) -> bool:
         """Header luôn sticky (luôn trên cùng)."""
