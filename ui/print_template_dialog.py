@@ -6,7 +6,7 @@ class PrintTemplateDialog(QDialog):
     def __init__(self, context, parent=None):
         super().__init__(parent)
         self.setWindowTitle("In mẫu Word/PDF")
-        self.resize(400, 200)
+        self.setMinimumSize(400, 200)
         layout = QVBoxLayout(self)
 
         # Danh sách template

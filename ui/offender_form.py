@@ -79,13 +79,16 @@ class OffenderForm(QWidget):
         main_layout.addWidget(scroll_area)
         self.setup_action_bar(main_layout)
         self.case_number_edit.setFocus()  # Auto-focus trường đầu tiên
+        # Accessibility: set tab order cho các input, button, notes_edit
+        self.set_tab_order_accessibility()
         
     def setup_header(self, parent_layout):
         """Setup header section."""
         header_frame = QFrame()
         header_frame.setObjectName("header")
         header_layout = QHBoxLayout(header_frame)
-        header_layout.setContentsMargins(30, 20, 30, 20)
+        header_layout.setContentsMargins(12, 12, 12, 12)
+        header_layout.setSpacing(10)
         icon_label = QLabel()
         icon_pixmap = QPixmap("assets/logo_cand.png")
         if not icon_pixmap.isNull():
@@ -272,7 +275,8 @@ class OffenderForm(QWidget):
         # Xóa setStyleSheet inline, dùng QSS
         # action_frame.setStyleSheet(...)
         action_layout = QHBoxLayout(action_frame)
-        action_layout.setContentsMargins(30, 15, 30, 15)
+        action_layout.setContentsMargins(12, 12, 12, 12)
+        action_layout.setSpacing(10)
         # Hiệu ứng bóng đổ
         shadow = QGraphicsDropShadowEffect()
         shadow.setBlurRadius(16)
@@ -962,3 +966,34 @@ class OffenderForm(QWidget):
     # Nếu dùng OCR tiếng Việt, cần cài thêm gói ngôn ngữ cho Tesseract:
     # https://github.com/tesseract-ocr/tessdata/blob/main/vie.traineddata
     ''' 
+
+    def set_tab_order_accessibility(self):
+        """Đảm bảo accessibility: set tab order cho các input, combo, date, button, notes_edit."""
+        # Tab order: case_number_edit → full_name_edit → gender_combo → birth_date_edit → address_edit → ward_edit → occupation_edit → crime_edit → case_type_combo → sentence_number_edit → decision_number_edit → start_date_input → duration_months_spin → reduced_months_spin → reduction_date_input → reduction_count_spin → notes_edit → cancel_btn → save_btn → paste_auto_btn → import_file_btn → import_image_btn
+        widgets = [
+            getattr(self, 'case_number_edit', None),
+            getattr(self, 'full_name_edit', None),
+            getattr(self, 'gender_combo', None),
+            getattr(self, 'birth_date_edit', None),
+            getattr(self, 'address_edit', None),
+            getattr(self, 'ward_edit', None),
+            getattr(self, 'occupation_edit', None),
+            getattr(self, 'crime_edit', None),
+            getattr(self, 'case_type_combo', None),
+            getattr(self, 'sentence_number_edit', None),
+            getattr(self, 'decision_number_edit', None),
+            getattr(self, 'start_date_input', None),
+            getattr(self, 'duration_months_spin', None),
+            getattr(self, 'reduced_months_spin', None),
+            getattr(self, 'reduction_date_input', None),
+            getattr(self, 'reduction_count_spin', None),
+            getattr(self, 'notes_edit', None),
+            getattr(self, 'cancel_btn', None),
+            getattr(self, 'save_btn', None),
+            getattr(self, 'paste_auto_btn', None),
+            getattr(self, 'import_file_btn', None),
+            getattr(self, 'import_image_btn', None),
+        ]
+        widgets = [w for w in widgets if w is not None]
+        for i in range(len(widgets) - 1):
+            self.setTabOrder(widgets[i], widgets[i + 1]) 

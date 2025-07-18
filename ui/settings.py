@@ -33,8 +33,8 @@ class SettingsWidget(QWidget):
         """Setup user interface."""
         # Main layout
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(20, 20, 20, 20)
-        main_layout.setSpacing(20)
+        main_layout.setContentsMargins(12, 12, 12, 12)
+        main_layout.setSpacing(10)
         
         # Title
         title_label = QLabel("⚙️ CÀI ĐẶT HỆ THỐNG")
@@ -84,14 +84,14 @@ class SettingsWidget(QWidget):
         """Setup general settings tab."""
         general_widget = QWidget()
         general_layout = QVBoxLayout(general_widget)
-        general_layout.setContentsMargins(20, 20, 20, 20)
-        general_layout.setSpacing(20)
+        general_layout.setContentsMargins(12, 12, 12, 12)
+        general_layout.setSpacing(10)
         
         # General settings group
         general_group = QGroupBox("Cài đặt chung")
         general_group.setFont(QFont("Segoe UI", 13, QFont.Weight.Bold))
         general_form = QGridLayout(general_group)
-        general_form.setSpacing(15)
+        general_form.setSpacing(10)
         
         # Language
         general_form.addWidget(QLabel("Ngôn ngữ:"), 0, 0)
@@ -132,14 +132,14 @@ class SettingsWidget(QWidget):
         """Setup security settings tab."""
         security_widget = QWidget()
         security_layout = QVBoxLayout(security_widget)
-        security_layout.setContentsMargins(20, 20, 20, 20)
-        security_layout.setSpacing(20)
+        security_layout.setContentsMargins(12, 12, 12, 12)
+        security_layout.setSpacing(10)
         
         # Security settings group
         security_group = QGroupBox("Cài đặt bảo mật")
         security_group.setFont(QFont("Segoe UI", 13, QFont.Weight.Bold))
         security_form = QGridLayout(security_group)
-        security_form.setSpacing(15)
+        security_form.setSpacing(10)
         
         # Session timeout
         security_form.addWidget(QLabel("Thời gian timeout (phút):"), 0, 0)
@@ -178,14 +178,14 @@ class SettingsWidget(QWidget):
         """Setup backup settings tab."""
         backup_widget = QWidget()
         backup_layout = QVBoxLayout(backup_widget)
-        backup_layout.setContentsMargins(20, 20, 20, 20)
-        backup_layout.setSpacing(20)
+        backup_layout.setContentsMargins(12, 12, 12, 12)
+        backup_layout.setSpacing(10)
         
         # Backup settings group
         backup_group = QGroupBox("Cài đặt sao lưu")
         backup_group.setFont(QFont("Segoe UI", 13, QFont.Weight.Bold))
         backup_form = QGridLayout(backup_group)
-        backup_form.setSpacing(15)
+        backup_form.setSpacing(10)
         
         # Backup frequency
         backup_form.addWidget(QLabel("Tần suất backup:"), 0, 0)
@@ -222,14 +222,14 @@ class SettingsWidget(QWidget):
         """Setup UI settings tab."""
         ui_widget = QWidget()
         ui_layout = QVBoxLayout(ui_widget)
-        ui_layout.setContentsMargins(20, 20, 20, 20)
-        ui_layout.setSpacing(20)
+        ui_layout.setContentsMargins(12, 12, 12, 12)
+        ui_layout.setSpacing(10)
         
         # UI settings group
         ui_group = QGroupBox("Cài đặt giao diện")
         ui_group.setFont(QFont("Segoe UI", 13, QFont.Weight.Bold))
         ui_form = QGridLayout(ui_group)
-        ui_form.setSpacing(15)
+        ui_form.setSpacing(10)
         
         # Font size
         ui_form.addWidget(QLabel("Kích thước font:"), 0, 0)

@@ -5,7 +5,7 @@ Dashboard widget for displaying system overview and statistics.
 """
 
 from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QGroupBox, QGridLayout
+    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QGroupBox, QGridLayout, QSizePolicy
 )
 from PyQt6.QtCore import Qt, pyqtSignal, QTimer, QPropertyAnimation, QSequentialAnimationGroup, QParallelAnimationGroup, QPoint, QEasingCurve, QPauseAnimation
 from PyQt6.QtGui import QFont, QMouseEvent
@@ -33,7 +33,7 @@ class ClickableCard(QFrame):
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         # SVG icon
         self.svg_widget = QSvgWidget(svg_path, self)
-        self.svg_widget.setFixedSize(40, 40)
+        self.svg_widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.svg_widget.setAccessibleName(f"{action_type} icon")
         # Shadow effect
         shadow = QGraphicsDropShadowEffect(self)
@@ -147,6 +147,8 @@ class Dashboard(QWidget):
         self.setup_recent_activity(self._main_layout)
         
         self._main_layout.addStretch()  # Đảm bảo co giãn full chiều dọc
+        # Accessibility: set tab order cho stat_cards, notification_cards, activity_group
+        self.set_tab_order_accessibility()
         
     def setup_statistics_cards(self, parent_layout):
         """Setup statistics cards."""
@@ -169,7 +171,7 @@ class Dashboard(QWidget):
             layout = QVBoxLayout(card)
             layout.setSpacing(6)  # giảm spacing
             layout.setContentsMargins(12, 12, 12, 12)  # giảm padding
-            card.svg_widget.setFixedSize(32, 32)  # nhỏ hơn
+            card.svg_widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
             title_label = QLabel(title)
             title_label.setFont(QFont("Inter", 12, QFont.Weight.Medium))  # nhỏ hơn
             title_label.setObjectName("SectionTitle")
@@ -363,8 +365,9 @@ class Dashboard(QWidget):
         activity_layout.setContentsMargins(12, 12, 12, 12)
         icon_dir = "assets/icons/"
         activity_svg = QSvgWidget(join(icon_dir, "activity.svg"), self.activity_group)
-        activity_svg.setFixedSize(28, 28)
+        activity_svg.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         activity_svg.setAccessibleName("Hoạt động icon")
+        activity_svg.setObjectName("ActivitySVG")  # Thêm objectName để style QSS
         activity_layout.addWidget(activity_svg, alignment=Qt.AlignmentFlag.AlignLeft)
         activity_title = QLabel("HOẠT ĐỘNG GẦN ĐÂY")
         activity_title.setFont(QFont("Inter", 13, QFont.Weight.Bold))
@@ -528,3 +531,16 @@ class Dashboard(QWidget):
         super().showEvent(event)
         # Refresh data when dashboard is shown
         self.refresh_data() 
+
+    def set_tab_order_accessibility(self):
+        """Đảm bảo accessibility: set tab order cho stat_cards, notification_cards, activity_group."""
+        # Tab order: stat_cards -> notification_cards -> activity_group
+        widgets = []
+        if hasattr(self, 'stat_cards'):
+            widgets.extend(self.stat_cards)
+        if hasattr(self, 'notification_cards'):
+            widgets.extend(self.notification_cards)
+        if hasattr(self, 'activity_group'):
+            widgets.append(self.activity_group)
+        for i in range(len(widgets) - 1):
+            self.setTabOrder(widgets[i], widgets[i + 1]) 

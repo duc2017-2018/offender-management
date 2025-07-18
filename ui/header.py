@@ -4,10 +4,11 @@
 Header Widget - Header ứng dụng
 """
 
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QPushButton
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QPushButton, QSizePolicy
 from PyQt6.QtCore import Qt, QTimer, QDateTime
 from PyQt6.QtGui import QPixmap, QFont
 from constants import UI_FONT, APP_NAME
+
 
 class HeaderWidget(QWidget):
     """Header ứng dụng: logo, tiêu đề, user, đồng hồ"""
@@ -51,32 +52,35 @@ class HeaderWidget(QWidget):
         self.user_label = QLabel(f"Người dùng: {self.username}")
         user_font = QFont(UI_FONT['family'], 12)
         self.user_label.setFont(user_font)
-        self.user_label.setObjectName("userLabel") # Added for style
+        self.user_label.setObjectName("userLabel")  # Added for style
         layout.addWidget(self.user_label)
 
         # Settings button
         self.settings_btn = QPushButton("⚙️")
-        self.settings_btn.setFixedSize(28, 28)
+        self.settings_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.settings_btn.setToolTip("Cài đặt")
-        self.settings_btn.setObjectName("settingsBtn") # Added for style
+        self.settings_btn.setObjectName("settingsBtn")  # Added for style
         layout.addWidget(self.settings_btn)
 
         # Logout button
         self.logout_btn = QPushButton("🚪")
-        self.logout_btn.setFixedSize(28, 28)
+        self.logout_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.logout_btn.setToolTip("Đăng xuất")
-        self.logout_btn.setObjectName("logoutBtn") # Added for style
+        self.logout_btn.setObjectName("logoutBtn")  # Added for style
         layout.addWidget(self.logout_btn)
 
         # Đồng hồ
         self.time_label = QLabel()
         time_font = QFont(UI_FONT['family'], 12)
         self.time_label.setFont(time_font)
-        self.time_label.setStyleSheet("color: #888;")
-        self.time_label.setObjectName("timeLabel") # Added for style
+        # self.time_label.setStyleSheet("color: #888;")  # Loại bỏ inline style
+        self.time_label.setObjectName("timeLabel")  # Added for style
         layout.addWidget(self.time_label)
         # Set initial time
         self.update_time()
+
+        # Accessibility: set tab order cho các nút
+        self.set_tab_order_accessibility()
 
     def setup_timer(self):
         """Thiết lập timer cập nhật thời gian"""
@@ -105,3 +109,14 @@ class HeaderWidget(QWidget):
     def set_settings_callback(self, callback):
         """Thiết lập callback cho nút settings"""
         self.settings_btn.clicked.connect(callback) 
+
+    def set_tab_order_accessibility(self):
+        """Đảm bảo accessibility: set tab order cho các nút header."""
+        # Tab order: user_label -> settings_btn -> logout_btn -> time_label
+        self.setTabOrder(self.user_label, self.settings_btn)
+        self.setTabOrder(self.settings_btn, self.logout_btn)
+        self.setTabOrder(self.logout_btn, self.time_label) 
+
+    def is_sticky(self) -> bool:
+        """Header luôn sticky (luôn trên cùng)."""
+        return True 

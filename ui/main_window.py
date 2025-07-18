@@ -58,7 +58,6 @@ class MainWindow(QMainWindow):
         """Setup user interface."""
         # Window properties
         self.setWindowTitle("Hệ thống Quản lý Đối tượng Thi hành án")
-        self.resize(1400, 900)
         self.setMinimumSize(1200, 800)
         
         # Central widget
@@ -75,6 +74,7 @@ class MainWindow(QMainWindow):
         
         # Header (sticky, luôn trên cùng)
         self.header = Header("admin")
+        self.header.setObjectName("HeaderWidget")  # Để style sticky nếu cần
         main_layout.addWidget(self.header)
         
         # Content area dùng QSplitter để sidebar co giãn
@@ -90,6 +90,7 @@ class MainWindow(QMainWindow):
             QSizePolicy.Policy.Preferred,
             QSizePolicy.Policy.Expanding
         )
+        self.sidebar.setObjectName("SidebarWidget")  # Để style nếu cần
         self.content_splitter.addWidget(self.sidebar)
         
         # Main content scroll area
@@ -112,6 +113,7 @@ class MainWindow(QMainWindow):
             QSizePolicy.Policy.Expanding
         )
         main_scroll_area.setWidget(self.stacked_widget)
+        main_scroll_area.setObjectName("MainContentScrollArea")
         self.content_splitter.addWidget(main_scroll_area)
         
         # Stretch: sidebar co giãn, nội dung chính co giãn tối đa
@@ -122,6 +124,14 @@ class MainWindow(QMainWindow):
         
         # Initialize pages
         self.setup_pages()
+
+        # Accessibility: set tab order cho sidebar, header, main content
+        self.set_tab_order_accessibility()
+
+    def set_tab_order_accessibility(self):
+        """Đảm bảo accessibility: tab order cho sidebar, header, main content."""
+        self.setTabOrder(self.sidebar, self.header)
+        self.setTabOrder(self.header, self.stacked_widget)
         
     def setup_pages(self):
         """Setup all application pages."""

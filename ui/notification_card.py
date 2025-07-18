@@ -68,7 +68,7 @@ class NotificationCard(QFrame):
         
         # Icon
         self.icon_label = QLabel()
-        self.icon_label.setFixedSize(24, 24)
+        self.icon_label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.icon_label.setObjectName("notificationIcon")
         header_layout.addWidget(self.icon_label)
         
@@ -83,7 +83,7 @@ class NotificationCard(QFrame):
         
         # Dismiss button
         self.dismiss_button = QPushButton("✕")
-        self.dismiss_button.setFixedSize(20, 20)
+        self.dismiss_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.dismiss_button.setObjectName("notificationDismiss")
         self.dismiss_button.clicked.connect(self.dismiss)
         header_layout.addWidget(self.dismiss_button)

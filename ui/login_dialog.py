@@ -32,13 +32,13 @@ class LoginDialog(QDialog):
         """Setup user interface."""
         # Window properties
         self.setWindowTitle("Đăng nhập - Hệ thống Quản lý Đối tượng Thi hành án")
-        self.setFixedSize(400, 300)
+        self.setMinimumSize(400, 300)
         self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.WindowCloseButtonHint)
         
         # Main layout
         main_layout = QVBoxLayout()
-        main_layout.setContentsMargins(20, 20, 20, 20)
-        main_layout.setSpacing(20)
+        main_layout.setContentsMargins(12, 12, 12, 12)
+        main_layout.setSpacing(10)
         
         # Logo and title
         title_layout = QHBoxLayout()
@@ -60,7 +60,7 @@ class LoginDialog(QDialog):
         title_label = QLabel("HỆ THỐNG QUẢN LÝ\nĐỐI TƯỢNG THI HÀNH ÁN")
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title_label.setFont(QFont("Segoe UI", 16, QFont.Weight.Bold))
-        title_label.setStyleSheet("color: #1976D2;")
+        title_label.setObjectName("loginDialogTitle")
         title_layout.addWidget(title_label)
         
         main_layout.addLayout(title_layout)
@@ -68,6 +68,7 @@ class LoginDialog(QDialog):
         # Login form
         form_layout = QGridLayout()
         form_layout.setSpacing(15)
+        form_layout.setContentsMargins(12, 12, 12, 12)
         
         # Username
         username_label = QLabel("Tên đăng nhập:")

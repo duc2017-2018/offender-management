@@ -36,8 +36,8 @@ class AIToolsWidget(QWidget):
         """Setup user interface."""
         # Main layout
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(20, 20, 20, 20)
-        main_layout.setSpacing(20)
+        main_layout.setContentsMargins(12, 12, 12, 12)
+        main_layout.setSpacing(10)
         
         # Title
         title_label = QLabel("🤖 AI TOOLS - CÔNG CỤ THÔNG MINH")
@@ -61,8 +61,8 @@ class AIToolsWidget(QWidget):
         risk_widget = QWidget()
         risk_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         risk_layout = QVBoxLayout(risk_widget)
-        risk_layout.setContentsMargins(20, 20, 20, 20)
-        risk_layout.setSpacing(20)
+        risk_layout.setContentsMargins(12, 12, 12, 12)
+        risk_layout.setSpacing(10)
         
         # Offender selection
         selection_group = QGroupBox("Chọn đối tượng để dự đoán")
@@ -89,8 +89,7 @@ class AIToolsWidget(QWidget):
         results_layout = QVBoxLayout(results_group)
         
         self.risk_result_label = QLabel("Chưa có kết quả dự đoán")
-        self.risk_result_label.setStyleSheet("color: #666; font-style: italic;")
-        results_layout.addWidget(self.risk_result_label)
+        self.risk_result_label.setObjectName("riskResultLabel")
         
         self.risk_factors_label = QLabel("")
         self.risk_factors_label.setWordWrap(True)
@@ -109,8 +108,8 @@ class AIToolsWidget(QWidget):
         chatbot_widget = QWidget()
         chatbot_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         chatbot_layout = QVBoxLayout(chatbot_widget)
-        chatbot_layout.setContentsMargins(20, 20, 20, 20)
-        chatbot_layout.setSpacing(20)
+        chatbot_layout.setContentsMargins(12, 12, 12, 12)
+        chatbot_layout.setSpacing(10)
         
         # Chat history
         history_group = QGroupBox("Lịch sử chat")
@@ -120,14 +119,7 @@ class AIToolsWidget(QWidget):
         self.chat_history = QTextEdit()
         self.chat_history.setReadOnly(True)
         self.chat_history.setMaximumHeight(300)
-        self.chat_history.setStyleSheet("""
-            QTextEdit {
-                background-color: #F8F9FA;
-                border: 1px solid #E0E0E0;
-                border-radius: 6px;
-                padding: 10px;
-            }
-        """)
+        self.chat_history.setObjectName("chatHistory")
         
         # Add initial message
         self.chat_history.append("Bot: Xin chào! Tôi có thể giúp gì cho bạn?")
@@ -165,8 +157,8 @@ class AIToolsWidget(QWidget):
         trend_widget = QWidget()
         trend_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         trend_layout = QVBoxLayout(trend_widget)
-        trend_layout.setContentsMargins(20, 20, 20, 20)
-        trend_layout.setSpacing(20)
+        trend_layout.setContentsMargins(12, 12, 12, 12)
+        trend_layout.setSpacing(10)
         
         # Analysis controls
         controls_group = QGroupBox("Thiết lập phân tích")
@@ -193,8 +185,7 @@ class AIToolsWidget(QWidget):
         results_layout = QVBoxLayout(results_group)
         
         self.trend_result_label = QLabel("Chưa có kết quả phân tích")
-        self.trend_result_label.setStyleSheet("color: #666; font-style: italic;")
-        results_layout.addWidget(self.trend_result_label)
+        self.trend_result_label.setObjectName("trendResultLabel")
         
         trend_layout.addWidget(results_group)
         

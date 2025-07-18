@@ -34,8 +34,8 @@ class LoginWindow(QWidget):
         """Khởi tạo giao diện"""
         # Main layout
         main_layout = QVBoxLayout()
-        main_layout.setContentsMargins(40, 40, 40, 40)
-        main_layout.setSpacing(20)
+        main_layout.setContentsMargins(12, 12, 12, 12)
+        main_layout.setSpacing(10)
         
         # Logo and title
         logo_layout = QHBoxLayout()
@@ -61,8 +61,8 @@ class LoginWindow(QWidget):
         form_frame = QFrame()
         form_frame.setObjectName("card")
         form_layout = QVBoxLayout(form_frame)
-        form_layout.setContentsMargins(30, 30, 30, 30)
-        form_layout.setSpacing(20)
+        form_layout.setContentsMargins(12, 12, 12, 12)
+        form_layout.setSpacing(10)
         
         # Username field
         username_layout = QVBoxLayout()
@@ -110,7 +110,7 @@ class LoginWindow(QWidget):
         # Status label
         self.status_label = QLabel("")
         self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.status_label.setObjectName("error")
+        self.status_label.setObjectName("statusLabel")
         main_layout.addWidget(self.status_label)
         
         # Add stretch to center the form
@@ -120,7 +120,7 @@ class LoginWindow(QWidget):
         
         # Set window properties
         self.setWindowTitle("Đăng nhập - " + APP_NAME)
-        self.setFixedSize(400, 500)
+        self.setMinimumSize(400, 300)
         
         # Auto-focus on username
         self.username_input.setFocus()
@@ -209,13 +209,13 @@ class LoginWindow(QWidget):
         """Hiển thị lỗi"""
         self.status_label.setText(message)
         self.status_label.setObjectName("error")
-        self.status_label.setStyleSheet("color: #F44336; font-weight: bold;")
+        # self.status_label.setStyleSheet("color: #F44336; font-weight: bold;")
         
     def show_success(self, message: str):
         """Hiển thị thành công"""
         self.status_label.setText(message)
         self.status_label.setObjectName("success")
-        self.status_label.setStyleSheet("color: #4CAF50; font-weight: bold;")
+        # self.status_label.setStyleSheet("color: #4CAF50; font-weight: bold;")
         
     def clear_fields(self):
         """Xóa các trường nhập liệu"""

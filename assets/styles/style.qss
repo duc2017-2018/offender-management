@@ -180,58 +180,105 @@ QLabel#info {
     font-weight: bold;
 }
 
-/* === Notification Card nhỏ gọn, màu sắc nổi bật === */
+/* === Notification Card hiện đại, nổi bật, bo góc lớn, icon lớn === */
 QFrame#notificationCardError {
     background: #F44336;
-    color: white;
-    border: 2px solid #B71C1C;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: bold;
-    box-shadow: 0 2px 12px rgba(244, 67, 54, 0.18);
-    min-height: 36px;
-    max-width: 340px;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 24px rgba(244, 67, 54, 0.18);
+    min-height: 48px;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
 }
 QFrame#notificationCardWarning {
     background: #FF9800;
     color: #222;
-    border: 2px solid #E65100;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: bold;
-    box-shadow: 0 2px 12px rgba(255, 152, 0, 0.18);
-    min-height: 36px;
-    max-width: 340px;
+    border: none;
+    border-radius: 16px;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 24px rgba(255, 152, 0, 0.18);
+    min-height: 48px;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
 }
 QFrame#notificationCardSuccess {
     background: #4CAF50;
-    color: white;
-    border: 2px solid #1B5E20;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: bold;
-    box-shadow: 0 2px 12px rgba(76, 175, 80, 0.18);
-    min-height: 36px;
-    max-width: 340px;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 24px rgba(76, 175, 80, 0.18);
+    min-height: 48px;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
 }
 QFrame#notificationCardInfo {
     background: #1976D2;
-    color: white;
-    border: 2px solid #0D47A1;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: bold;
-    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.18);
-    min-height: 36px;
-    max-width: 340px;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 24px rgba(25, 118, 210, 0.18);
+    min-height: 48px;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
 }
 QLabel#notificationIcon {
-    font-size: 18px;
-    margin-right: 8px;
+    font-size: 28px;
+    margin-right: 16px;
+    min-width: 32px;
+    min-height: 32px;
+    vertical-align: middle;
+}
+QLabel#notificationTitle {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 2px;
+}
+QFrame#notificationCardWarning QLabel#notificationTitle {
+    color: #222;
+}
+QLabel#notificationMessage {
+    color: #f5f5f5;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+QFrame#notificationCardWarning QLabel#notificationMessage {
+    color: #222;
+}
+QPushButton#notificationAction {
+    background: #fff;
+    color: #1976D2;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 16px;
+    margin-left: 16px;
+    min-height: 32px;
+    transition: background 0.2s, color 0.2s;
+}
+QPushButton#notificationAction:hover {
+    background: #dbe9f4;
+    color: #1565C0;
 }
 
 /* Notification Title */
@@ -591,4 +638,93 @@ QWidget#SidebarWidget {
     background: #e3eaf3;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(25, 118, 210, 0.08);
+} 
+
+/* === SidebarWidget hiện đại, nổi bật với nền xanh === */
+#SidebarWidget {
+    background: #1976D2;
+    border-right: 1.5px solid #1565C0;
+    min-width: 200px;
+    max-width: 340px;
+    box-shadow: 2px 0 16px 0 rgba(25, 118, 210, 0.08);
+}
+
+#SidebarWidget QScrollArea {
+    background: transparent;
+    border: none;
+}
+
+#SidebarWidget QLabel {
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+#SidebarWidget QPushButton {
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 8px;
+    min-height: 40px;
+    margin-bottom: 2px;
+    transition: background 0.2s, color 0.2s;
+}
+#SidebarWidget QPushButton:hover, #SidebarWidget QPushButton:focus {
+    background: #1565C0;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(21, 101, 192, 0.10);
+}
+#SidebarWidget QPushButton:checked {
+    background: #fff;
+    color: #1976D2;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.12);
+} 
+
+QLabel#title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1976D2;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    letter-spacing: 0.5px;
+} 
+
+QLabel#statusLabel[objectName="error"] {
+    color: #F44336;
+    font-weight: bold;
+}
+QLabel#statusLabel[objectName="success"] {
+    color: #4CAF50;
+    font-weight: bold;
+}
+QLabel#statusLabel {
+    color: #1976D2;
+    background-color: #E3F2FD;
+    border: 1px solid #BBDEFB;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-height: 45px;
+    font-size: 13px;
+}
+QLabel#loginDialogTitle {
+    color: #1976D2;
+    font-size: 18px;
+    font-weight: bold;
+}
+QLabel#riskResultLabel, QLabel#trendResultLabel {
+    color: #666;
+    font-style: italic;
+    font-size: 13px;
+}
+QTextEdit#chatHistory {
+    background-color: #F8F9FA;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 13px;
 } 

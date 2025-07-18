@@ -10,9 +10,10 @@ from PyQt6.QtWidgets import QPushButton
 from PyQt6.QtWidgets import QLabel
 from PyQt6.QtWidgets import QFrame
 from PyQt6.QtWidgets import QScrollArea
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
-from constants import UI_LAYOUT, UI_FONT, PAGES, SIDEBAR_WIDTH
+from constants import UI_FONT, PAGES, SIDEBAR_WIDTH
+
 
 class SidebarWidget(QWidget):
     """Sidebar navigation với các menu chính"""
@@ -23,6 +24,7 @@ class SidebarWidget(QWidget):
         self.page_callback = page_callback
         self.current_page = 0
         self.nav_buttons = {}
+        self._mini_mode = False  # Thêm thuộc tính mini mode
         self.setup_ui()
         
     def setup_ui(self):
@@ -69,7 +71,9 @@ class SidebarWidget(QWidget):
         app_name = QLabel("QUẢN LÝ\nĐỐI TƯỢNG")
         app_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
         app_name.setWordWrap(True)
-        app_font = QFont(UI_FONT['family'], UI_FONT['size_small'], UI_FONT['weight_bold'])
+        app_font = QFont(
+            UI_FONT['family'], UI_FONT['size_small'], UI_FONT['weight_bold']
+        )
         app_name.setFont(app_font)
         logo_layout.addWidget(app_name)
 
@@ -86,7 +90,9 @@ class SidebarWidget(QWidget):
 
         # Create navigation buttons
         for page_id, page_info in PAGES.items():
-            btn = self.create_nav_button(page_info['icon'], page_info['name'], page_id)
+            btn = self.create_nav_button(
+                page_info['icon'], page_info['name'], page_id
+            )
             nav_layout.addWidget(btn)
             self.nav_buttons[page_id] = btn
 
@@ -170,26 +176,33 @@ class SidebarWidget(QWidget):
 
     def set_mini_mode(self, mini: bool):
         """Chuyển sidebar sang chế độ mini (chỉ icon) hoặc đầy đủ (icon + text)."""
+        self._mini_mode = mini  # Cập nhật trạng thái mini mode
         for page_id, btn in self.nav_buttons.items():
-            text = btn.text()
             if mini:
                 # Chỉ hiện icon (lấy ký tự đầu)
-                icon = text.split(' ')[0]
+                icon = PAGES[page_id]['icon']
                 btn.setText(icon)
                 btn.setMinimumHeight(48)
                 btn.setMaximumHeight(56)
-                btn.setStyleSheet("font-size: 20px; padding: 0px 0px;")
+                # Không setStyleSheet inline, mọi style lấy từ QSS
             else:
                 # Hiện icon + text
                 page_info = PAGES[page_id]
                 btn.setText(f"{page_info['icon']} {page_info['name']}")
                 btn.setMinimumHeight(45)
                 btn.setMaximumHeight(60)
-                btn.setStyleSheet("")
+                # Không setStyleSheet inline
         # Logo mini
         logo_frame = self.findChild(QFrame, "logo_frame")
         if logo_frame:
-            logo_label = logo_frame.findChild(QLabel)
+            logo_label = None
+            for child in logo_frame.children():
+                if (
+                    isinstance(child, QLabel)
+                    and child.text() == "🏛️"
+                ):
+                    logo_label = child
+                    break
             if logo_label:
                 if mini:
                     logo_label.setFont(QFont(UI_FONT['family'], 20))
@@ -198,7 +211,10 @@ class SidebarWidget(QWidget):
         # Ẩn/hiện app name
         app_name = None
         for child in logo_frame.children():
-            if isinstance(child, QLabel) and "QUẢN LÝ" in child.text():
+            if (
+                isinstance(child, QLabel)
+                and "QUẢN LÝ" in child.text()
+            ):
                 app_name = child
                 break
         if app_name:
@@ -208,4 +224,36 @@ class SidebarWidget(QWidget):
         if bottom_frame:
             for child in bottom_frame.children():
                 if isinstance(child, QLabel) or isinstance(child, QPushButton):
-                    child.setVisible(not mini) 
+                    child.setVisible(not mini)
+        # Accessibility: set tab order cho nav buttons, logout, user info
+        self.set_tab_order_accessibility()
+
+    def is_mini_mode(self) -> bool:
+        """Trả về trạng thái mini mode của sidebar."""
+        return self._mini_mode
+
+    def set_tab_order_accessibility(self):
+        """Đảm bảo accessibility: set tab order cho các nút nav, logout, user info."""
+        # Tab order: nav buttons -> user label -> logout
+        nav_btns = list(self.nav_buttons.values())
+        for i in range(len(nav_btns) - 1):
+            self.setTabOrder(
+                nav_btns[i], nav_btns[i + 1]
+            )
+        bottom_frame = self.findChild(QFrame, "bottom_frame")
+        user_label = None
+        logout_btn = None
+        if bottom_frame:
+            for child in bottom_frame.children():
+                if isinstance(child, QLabel):
+                    user_label = child
+                if isinstance(child, QPushButton):
+                    logout_btn = child
+        if nav_btns and user_label:
+            self.setTabOrder(
+                nav_btns[-1], user_label
+            )
+        if user_label and logout_btn:
+            self.setTabOrder(
+                user_label, logout_btn
+            ) 

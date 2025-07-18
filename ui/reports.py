@@ -49,6 +49,8 @@ class ReportsWidget(QWidget):
         # Export buttons
         self.setup_export_buttons(main_layout)
         main_layout.addStretch()  # Đảm bảo co giãn full chiều dọc
+        # Accessibility: set tab order cho các combo, date, button, preview, export button
+        self.set_tab_order_accessibility()
         
     def setup_header(self, parent_layout):
         """Setup header section."""
@@ -546,3 +548,24 @@ Phân bố nguy cơ chi tiết:
             QMessageBox.critical(
                 self, "Lỗi", f"Không thể cập nhật dữ liệu: {str(e)}"
             ) 
+
+    def set_tab_order_accessibility(self):
+        """Đảm bảo accessibility: set tab order cho các combo, date, button, preview, export button."""
+        # Tab order: report_type_combo → start_date_edit → end_date_edit → location_filter_combo → case_type_filter_combo → generate_button → report_preview → export buttons (PDF, Excel, Print, Email)
+        widgets = [
+            getattr(self, 'report_type_combo', None),
+            getattr(self, 'start_date_edit', None),
+            getattr(self, 'end_date_edit', None),
+            getattr(self, 'location_filter_combo', None),
+            getattr(self, 'case_type_filter_combo', None),
+            getattr(self, 'generate_button', None),
+            getattr(self, 'report_preview', None),
+            getattr(self, 'export_pdf_button', None),
+            getattr(self, 'export_excel_button', None),
+            getattr(self, 'print_button', None),
+            getattr(self, 'print_confirmation_button', None),
+            getattr(self, 'email_button', None),
+        ]
+        widgets = [w for w in widgets if w is not None]
+        for i in range(len(widgets) - 1):
+            self.setTabOrder(widgets[i], widgets[i + 1]) 

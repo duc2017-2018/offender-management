@@ -80,6 +80,8 @@ class OffenderList(QWidget):
         self.bulk_delete_btn.setToolTip("Xóa các đối tượng đã chọn")
         self.bulk_export_btn.setToolTip("Xuất Excel các đối tượng đã chọn")
         self.bulk_print_btn.setToolTip("In báo cáo các đối tượng đã chọn")
+        # Accessibility: set tab order cho các input, filter, button, table
+        self.set_tab_order_accessibility()
         
     def setup_header(self, parent_layout):
         """Setup header section."""
@@ -197,7 +199,7 @@ class OffenderList(QWidget):
         status_clear_btn = QToolButton()
         status_clear_btn.setText("✕")
         status_clear_btn.setToolTip("Xóa lọc trạng thái")
-        status_clear_btn.setFixedSize(22, 22)
+        status_clear_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         status_clear_btn.clicked.connect(lambda: self.status_filter_combo.setCurrentIndex(0))
         status_layout.addWidget(status_clear_btn)
         filter_layout.addLayout(status_layout)
@@ -217,7 +219,7 @@ class OffenderList(QWidget):
         risk_clear_btn = QToolButton()
         risk_clear_btn.setText("✕")
         risk_clear_btn.setToolTip("Xóa lọc nguy cơ")
-        risk_clear_btn.setFixedSize(22, 22)
+        risk_clear_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         risk_clear_btn.clicked.connect(lambda: self.risk_filter_combo.setCurrentIndex(0))
         risk_layout.addWidget(risk_clear_btn)
         filter_layout.addLayout(risk_layout)
@@ -235,7 +237,7 @@ class OffenderList(QWidget):
         ward_clear_btn = QToolButton()
         ward_clear_btn.setText("✕")
         ward_clear_btn.setToolTip("Xóa lọc phường/xã")
-        ward_clear_btn.setFixedSize(22, 22)
+        ward_clear_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         ward_clear_btn.clicked.connect(lambda: self.ward_filter_combo.setCurrentIndex(0))
         area_layout.addWidget(ward_clear_btn)
         filter_layout.addLayout(area_layout)
@@ -253,7 +255,7 @@ class OffenderList(QWidget):
         case_type_clear_btn = QToolButton()
         case_type_clear_btn.setText("✕")
         case_type_clear_btn.setToolTip("Xóa lọc loại án")
-        case_type_clear_btn.setFixedSize(22, 22)
+        case_type_clear_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         case_type_clear_btn.clicked.connect(lambda: self.case_type_filter_combo.setCurrentIndex(0))
         case_type_layout.addWidget(case_type_clear_btn)
         filter_layout.addLayout(case_type_layout)
@@ -273,7 +275,7 @@ class OffenderList(QWidget):
         start_date_clear_btn = QToolButton()
         start_date_clear_btn.setText("✕")
         start_date_clear_btn.setToolTip("Xóa lọc từ ngày")
-        start_date_clear_btn.setFixedSize(22, 22)
+        start_date_clear_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         start_date_clear_btn.clicked.connect(lambda: self.start_date_filter.setDate(QDate(2000, 1, 1)))
         start_date_layout.addWidget(start_date_clear_btn)
         filter_layout.addLayout(start_date_layout)
@@ -293,7 +295,7 @@ class OffenderList(QWidget):
         end_date_clear_btn = QToolButton()
         end_date_clear_btn.setText("✕")
         end_date_clear_btn.setToolTip("Xóa lọc đến ngày")
-        end_date_clear_btn.setFixedSize(22, 22)
+        end_date_clear_btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         end_date_clear_btn.clicked.connect(lambda: self.end_date_filter.setDate(QDate.currentDate()))
         end_date_layout.addWidget(end_date_clear_btn)
         filter_layout.addLayout(end_date_layout)
@@ -924,3 +926,20 @@ class OffenderList(QWidget):
             dialog.exec()
         self.bulk_print_btn.setEnabled(True)
         QMessageBox.information(self, "Thành công", f"Đã in báo cáo cho {len(offenders_to_print)} đối tượng!") 
+
+    def set_tab_order_accessibility(self):
+        """Đảm bảo accessibility: set tab order cho các input, filter, button, table."""
+        # Tab order: search_edit → active_filter_btn → expiring_filter_btn → status_filter_combo → table → bulk_delete_btn → bulk_export_btn → bulk_print_btn
+        widgets = [
+            getattr(self, 'search_edit', None),
+            getattr(self, 'active_filter_btn', None),
+            getattr(self, 'expiring_filter_btn', None),
+            getattr(self, 'status_filter_combo', None),
+            getattr(self, 'table', None),
+            getattr(self, 'bulk_delete_btn', None),
+            getattr(self, 'bulk_export_btn', None),
+            getattr(self, 'bulk_print_btn', None),
+        ]
+        widgets = [w for w in widgets if w is not None]
+        for i in range(len(widgets) - 1):
+            self.setTabOrder(widgets[i], widgets[i + 1]) 

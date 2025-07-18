@@ -69,7 +69,9 @@ class OffenderManagementApp:
         # Set application style - LUÔN dùng style.qss
         try:
             with open("assets/styles/style.qss", "r", encoding="utf-8") as f:
-                self.app.setStyleSheet(f.read())
+                style = f.read()
+                print("QSS loaded:", len(style), "chars")
+                self.app.setStyleSheet(style)
         except Exception as e:
             print(f"Không thể load style.qss: {e}")
         
