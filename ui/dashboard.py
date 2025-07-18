@@ -33,7 +33,7 @@ class ClickableCard(QFrame):
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         # SVG icon
         self.svg_widget = QSvgWidget(svg_path, self)
-        self.svg_widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.svg_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         self.svg_widget.setAccessibleName(f"{action_type} icon")
         # Shadow effect
         shadow = QGraphicsDropShadowEffect(self)
@@ -171,7 +171,7 @@ class Dashboard(QWidget):
             layout = QVBoxLayout(card)
             layout.setSpacing(6)  # giảm spacing
             layout.setContentsMargins(12, 12, 12, 12)  # giảm padding
-            card.svg_widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+            card.svg_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
             title_label = QLabel(title)
             title_label.setFont(QFont("Inter", 12, QFont.Weight.Medium))  # nhỏ hơn
             title_label.setObjectName("SectionTitle")
@@ -365,7 +365,7 @@ class Dashboard(QWidget):
         activity_layout.setContentsMargins(12, 12, 12, 12)
         icon_dir = "assets/icons/"
         activity_svg = QSvgWidget(join(icon_dir, "activity.svg"), self.activity_group)
-        activity_svg.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        activity_svg.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         activity_svg.setAccessibleName("Hoạt động icon")
         activity_svg.setObjectName("ActivitySVG")  # Thêm objectName để style QSS
         activity_layout.addWidget(activity_svg, alignment=Qt.AlignmentFlag.AlignLeft)
