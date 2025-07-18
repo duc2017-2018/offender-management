@@ -87,3 +87,5 @@ pytesseract
 pdfplumber>=0.10.0 
 autocorrect>=2.6.1
 underthesea
+fuzzywuzzy
+python-Levenshtein
