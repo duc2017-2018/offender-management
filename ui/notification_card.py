@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
     QFrame, QSizePolicy
 )
-from PyQt6.QtCore import Qt, QTimer, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QFont, QPixmap, QIcon
 
 from enum import Enum
@@ -142,8 +142,42 @@ class NotificationCard(QFrame):
             self.dismiss_timer.timeout.connect(self.dismiss)
             self.dismiss_timer.start(self.dismiss_timeout)
             
+    def showEvent(self, event):
+        super().showEvent(event)
+        # Animation fade in + slide in
+        self.setWindowOpacity(0)
+        self._fade_anim = QPropertyAnimation(self, b"windowOpacity")
+        self._fade_anim.setDuration(220)
+        self._fade_anim.setStartValue(0)
+        self._fade_anim.setEndValue(1)
+        self._fade_anim.setEasingCurve(QEasingCurve.Type.InOutQuad)
+        self._fade_anim.start()
+        self._slide_anim = QPropertyAnimation(self, b"pos")
+        self._slide_anim.setDuration(220)
+        start_pos = self.pos() + self.parentWidget().rect().topRight() - self.rect().topRight() + Qt.QPoint(40, 0)
+        self._slide_anim.setStartValue(start_pos)
+        self._slide_anim.setEndValue(self.pos())
+        self._slide_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
+        self._slide_anim.start()
+
     def dismiss(self):
-        """Dismiss the notification."""
+        # Animation fade out + slide out
+        self._fade_anim = QPropertyAnimation(self, b"windowOpacity")
+        self._fade_anim.setDuration(180)
+        self._fade_anim.setStartValue(1)
+        self._fade_anim.setEndValue(0)
+        self._fade_anim.setEasingCurve(QEasingCurve.Type.InOutQuad)
+        self._fade_anim.finished.connect(self._on_fade_out_done)
+        self._fade_anim.start()
+        self._slide_anim = QPropertyAnimation(self, b"pos")
+        self._slide_anim.setDuration(180)
+        end_pos = self.pos() + Qt.QPoint(40, 0)
+        self._slide_anim.setStartValue(self.pos())
+        self._slide_anim.setEndValue(end_pos)
+        self._slide_anim.setEasingCurve(QEasingCurve.Type.InCubic)
+        self._slide_anim.start()
+
+    def _on_fade_out_done(self):
         self.dismissed.emit()
         self.deleteLater()
         

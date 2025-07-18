@@ -381,19 +381,15 @@ class MainWindow(QMainWindow):
             self.status_bar.showMessage("Cài đặt")
         
     def resizeEvent(self, event):
-        """Tự động thu nhỏ sidebar khi cửa sổ hẹp, mở rộng khi rộng."""
         super().resizeEvent(event)
-        width = self.width()
-        if width < 900:
-            # Mini sidebar: chỉ hiện icon, ẩn text, thu nhỏ chiều rộng
-            self.sidebar.set_mini_mode(True)
-            self.sidebar.setMinimumWidth(60)
-            self.sidebar.setMaximumWidth(80)
-        else:
-            # Full sidebar: hiện icon + text, mở rộng chiều rộng
-            self.sidebar.set_mini_mode(False)
-            self.sidebar.setMinimumWidth(180)
-            self.sidebar.setMaximumWidth(400)
+        # Responsive sidebar: auto mini when width < 900px
+        if hasattr(self, 'sidebar') and hasattr(self.sidebar, '_mini_mode'):
+            if self.width() < 900 and not self.sidebar._mini_mode:
+                if hasattr(self.sidebar, 'toggle_sidebar_mode'):
+                    self.sidebar.toggle_sidebar_mode()
+            elif self.width() >= 900 and self.sidebar._mini_mode:
+                if hasattr(self.sidebar, 'toggle_sidebar_mode'):
+                    self.sidebar.toggle_sidebar_mode()
         
     def closeEvent(self, event):
         """Handle window close event."""

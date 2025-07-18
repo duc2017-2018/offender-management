@@ -236,21 +236,17 @@ class AIToolsWidget(QWidget):
             risk_val = prediction['risk_level'].value if hasattr(prediction['risk_level'], 'value') else str(prediction['risk_level'])
             risk_text = f"Nguy cơ: {risk_val} ({prediction['risk_percentage']:.1f}%)"
             self.risk_result_label.setText(risk_text)
-            self.risk_result_label.setStyleSheet("color: #1976D2; font-weight: bold;")
             
             # Show risk factors
             factors_text = "Yếu tố ảnh hưởng:\n" + "\n".join([f"• {factor}" for factor in prediction['risk_factors']])
             self.risk_factors_label.setText(factors_text)
-            self.risk_factors_label.setStyleSheet("color: #424242;")
             
             # Show recommendations
             recommendations_text = "Khuyến nghị:\n" + "\n".join([f"• {rec}" for rec in prediction['recommendations']])
             self.recommendations_label.setText(recommendations_text)
-            self.recommendations_label.setStyleSheet("color: #1976D2; font-weight: bold;")
             
         except Exception as e:
             self.risk_result_label.setText(f"Lỗi dự đoán: {str(e)}")
-            self.risk_result_label.setStyleSheet("color: #F44336;")
             
     def send_message(self):
         """Send message to chatbot."""
@@ -304,11 +300,9 @@ class AIToolsWidget(QWidget):
             """
             
             self.trend_result_label.setText(trend_text)
-            self.trend_result_label.setStyleSheet("color: #1976D2; font-weight: bold;")
             
         except Exception as e:
             self.trend_result_label.setText(f"Lỗi phân tích: {str(e)}")
-            self.trend_result_label.setStyleSheet("color: #F44336;")
             
     def refresh_data(self):
         """Refresh AI tools data."""

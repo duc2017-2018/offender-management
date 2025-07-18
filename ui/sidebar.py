@@ -29,27 +29,38 @@ class SidebarWidget(QWidget):
         
     def setup_ui(self):
         """Thiết lập giao diện sidebar"""
-        self.setFixedWidth(SIDEBAR_WIDTH)
+        self._sidebar_width_full = SIDEBAR_WIDTH if hasattr(self, '_sidebar_width_full') else 220
+        self._sidebar_width_mini = 60
+        self.setFixedWidth(self._sidebar_width_full if not self._mini_mode else self._sidebar_width_mini)
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(12, 12, 12, 12)
         main_layout.setSpacing(10)
+        # Toggle button
+        self.toggle_btn = QPushButton("≡")
+        self.toggle_btn.setObjectName("sidebar_toggle_btn")
+        self.toggle_btn.setFixedSize(36, 36)
+        self.toggle_btn.setCheckable(True)
+        self.toggle_btn.setChecked(self._mini_mode)
+        self.toggle_btn.clicked.connect(self.toggle_sidebar_mode)
+        main_layout.addWidget(self.toggle_btn, alignment=Qt.AlignmentFlag.AlignLeft)
         # Scrollable content area
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
         scroll_content = QWidget()
         scroll_content.setObjectName("SidebarContent")
-        scroll_layout = QVBoxLayout(scroll_content)
-        scroll_layout.setContentsMargins(0, 0, 0, 0)
-        scroll_layout.setSpacing(0)
+        self._scroll_layout = QVBoxLayout(scroll_content)
+        self._scroll_layout.setContentsMargins(0, 0, 0, 0)
+        self._scroll_layout.setSpacing(0)
         # Logo section
-        self.setup_logo_section(scroll_layout)
+        self.setup_logo_section(self._scroll_layout)
         # Navigation buttons
-        self.setup_navigation_buttons(scroll_layout)
-        scroll_layout.addStretch()  # Đẩy các nút phía dưới xuống cuối scroll
+        self.setup_navigation_buttons(self._scroll_layout)
+        self._scroll_layout.addStretch()
         scroll_area.setWidget(scroll_content)
         main_layout.addWidget(scroll_area)
         # Bottom section (user info, logout)
         self.setup_bottom_section(main_layout)
+        self.update_sidebar_mode()
 
     def setup_logo_section(self, parent_layout):
         """Thiết lập phần logo"""
@@ -257,3 +268,44 @@ class SidebarWidget(QWidget):
             self.setTabOrder(
                 user_label, logout_btn
             ) 
+
+    def toggle_sidebar_mode(self):
+        self._mini_mode = not self._mini_mode
+        self.toggle_btn.setChecked(self._mini_mode)
+        self.animate_sidebar_width()
+        self.update_sidebar_mode()
+
+    def animate_sidebar_width(self):
+        from PyQt6.QtCore import QPropertyAnimation
+        target_width = self._sidebar_width_mini if self._mini_mode else self._sidebar_width_full
+        anim = QPropertyAnimation(self, b"minimumWidth")
+        anim.setDuration(180)
+        anim.setStartValue(self.width())
+        anim.setEndValue(target_width)
+        anim.start()
+        self.setFixedWidth(target_width)
+        self._sidebar_anim = anim  # giữ tham chiếu tránh bị GC
+
+    def update_sidebar_mode(self):
+        # Đổi objectName để QSS style khác biệt
+        self.setObjectName("SidebarWidgetMini" if self._mini_mode else "SidebarWidget")
+        # Ẩn/hiện text trên nav button
+        for btn in self.nav_buttons.values():
+            text = btn.text()
+            if self._mini_mode:
+                # Chỉ giữ icon, text thành tooltip
+                icon = text.split(' ')[0]
+                btn.setText(icon)
+                btn.setToolTip(text)
+            else:
+                # Hiện lại icon + text
+                page_id = [k for k, v in self.nav_buttons.items() if v == btn][0]
+                page_info = PAGES[page_id]
+                btn.setText(f"{page_info['icon']} {page_info['name']}")
+                btn.setToolTip("")
+        # Ẩn/hiện logo text
+        logo_frame = self.findChild(QFrame, "logo_frame")
+        if logo_frame:
+            app_name = logo_frame.findChild(QLabel, None)
+            if app_name:
+                app_name.setVisible(not self._mini_mode) 
